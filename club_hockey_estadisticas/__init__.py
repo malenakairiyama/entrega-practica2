@@ -1,8 +1,3 @@
-#4. Conocer el promedio de goles por partido del equipo en general. Dato: Se jugaron 25 partidos en la temporada.
-
-#5. Conocer el promedio de goles por partido del goleador o goleadora.
-
-
 #1. Generar una estructura todas las estadísticas asociadas a cada jugador.
 def generate_list_player (names, goals, goals_avoid, assists):
     """ 
@@ -62,5 +57,38 @@ def get_influencer (players_info):
     name_max = max(list_influence, key=lambda x: x[1])[0]
     
     return name_max
+
+#4. Conocer el promedio de goles por partido del equipo en general.
+def team_goals_average (players_info, matches):
+    """
+    Calcula el promedio de goles por partido del equipo en general.
+
+    Parametros:
+    players_info (list): Lista de diccionarios que contienen las estadísticas de cada jugador
+    matches (int): Número total de partidos jugados en la temporada.
+
+    Retorna:
+    float: El promedio de goles por partido del equipo."""
+    
+    total = sum(player["Goals"] for player in players_info)
+    average = total / matches
+    
+    return average
+
+#5. Conocer el promedio de goles por partido del goleador o goleadora.
+def max_scorer_average (players_info, matches):
+    """Calcula el promedio de goles por partido del goleador o goleadora.
+
+    Argumentos:
+    players_info (list): Lista de diccionarios que contienen las estadísticas de cada jugador.
+    partidos_jugados (int): Cantidad de partidos jugados en la temporada.
+
+    Retorna:
+    float: Promedio de goles por partido del goleador o goleadora.
+    """
+    max_scorer_name, max_scores = get_scorer(players_info)
+    average = max_scores / matches
+    
+    return average
 
 
