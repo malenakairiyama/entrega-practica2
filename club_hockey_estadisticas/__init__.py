@@ -39,6 +39,7 @@ def get_scorer (players_info):
         if goals > max:
             max = goals 
             name_max = player["Name"]
+    
     return name_max, max
 
 #3. Conocer el nombre del jugador o jugadora más influyente, esto se consigue
@@ -46,13 +47,20 @@ def get_scorer (players_info):
 #es que los goles a favor, evitados y las asistencias NO valen lo mismo
 
 def get_influencer (players_info):
-    max = 0
-    name_max = ""
+    """Encuentra al jugador más influyente según un promedio ponderado de goles a favor, goles evitados y asistencias.
+    
+    Argumento: lista de diccionarios que contienen las estadísticas de cada jugador.
+
+    Retorna: 
+        str: El nombre del jugador más influyente."""
+    
+
+    list_influence = []
     for player in players_info:
         influence = player["Goals"] * 1.5 + player["Goals_avoid"] * 1.25 + player["Assists"]
-        if influence > max:
-            max = influence
-            name_max = player["Name"]
-    return name_max, max 
+        list_influence.append((player["Name"], influence))
+    name_max = max(list_influence, key=lambda x: x[1])[0]
+    
+    return name_max
 
 
